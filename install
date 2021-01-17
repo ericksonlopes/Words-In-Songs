@@ -1,0 +1,5 @@
+pip install flask
+pip install Flask-RESTful
+pip install prettytable
+pip install tqdm
+pip install BeautifulSoup4
