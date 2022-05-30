@@ -5,6 +5,6 @@ idna==3.3
 prettytable==3.3.0
 requests==2.27.1
 soupsieve==2.3.2.post1
-tqdm==4.64.0
 urllib3==1.26.9
 wcwidth==0.2.5
+pytest~=7.1.2
