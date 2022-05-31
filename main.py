@@ -2,11 +2,13 @@ import requests
 from typing import List
 from bs4 import BeautifulSoup
 from prettytable import PrettyTable
+from tqdm import tqdm
+
 from utils import *
 
 
 class WordInSongs:
-    def __init__(self, artist, sentence):
+    def __init__(self, artist: str, sentence: str):
         self.__artist = artist
         self.__sentence = sentence
         self.__soup_html: BeautifulSoup
@@ -31,7 +33,7 @@ class WordInSongs:
     def sentence(self):
         return self.__sentence
 
-    def get_links_music(self) -> List[str]:
+    def get_links_musics(self) -> List[str]:
 
         links = []
 
@@ -49,7 +51,8 @@ class WordInSongs:
     def find_string_in_lyrics(self, links: list) -> List[SetenceFound]:
         phases = []
         # E por cada link capturado ele busca a palavra por toda a letra, O tqdm é responsavél pela barra de progresso
-        for link_music in links:
+        for link_music in tqdm(links, desc=f'Pesquisando "{self.sentence.capitalize()}" '
+                                           f'por todas as músicas de "{self.artist}"'):
             # faz a requisição até a página
             html_musica = requests.get(link_music)
             # Tratar o conteúdo recebido como um documento como uma estrutura de documento html
@@ -66,9 +69,13 @@ class WordInSongs:
 
             paragrafos = [item.text for item in page_music if item.text != '']
             musica = soup.find(id="lyricContent").find('h1').string
+
             for paragrafo in paragrafos:
+                # verifica se a string existe no paragrafo
                 if self.sentence.lower() in paragrafo.lower():
-                    phases.append(SetenceFound(music=musica, phase=paragrafo, link=link_music))
+                    # Se o paragrafo ja existir não adiciona
+                    if paragrafo not in [sf.phase for sf in phases]:
+                        phases.append(SetenceFound(music=musica, phase=paragrafo, link=link_music))
 
         return phases
 
@@ -78,6 +85,11 @@ class WordInSongs:
         # Cria o objeto da tabela, ja com o nome de cada coluna
         tabela_final = PrettyTable(['Música', 'Frase com a Palavra encontrada', 'link da letra'])
 
-        [tabela_final.add_row([str(i.music), str(i.phase), str(i.link)]) for i in phases]
+        [tabela_final.add_row([str(obj.music), str(obj.phase), str(obj.link)]) for obj in phases]
 
         return tabela_final
+
+    def show(self):
+        get_links_musics = self.get_links_musics()
+        find_string_in_lyrics = self.find_string_in_lyrics(get_links_musics)
+        print(self.view_table(find_string_in_lyrics))
