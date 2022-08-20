@@ -1,5 +1,5 @@
 from unittest import TestCase
-from main import WordInSongs
+from src.words_in_songs import WordInSongs
 
 
 class TestWordInSongs(TestCase):

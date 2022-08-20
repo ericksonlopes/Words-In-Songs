@@ -1,17 +1,20 @@
 # Words-In-Songs
 
 ![Star](https://img.shields.io/github/stars/Erickson-lopes-dev/Words-In-Songs?style=social) [![LinkedIn](https://img.shields.io/badge/LinkedIn-Erickson_Lopes%20-blue)](https://www.linkedin.com/in/ericksonlopes/)
+[![wakatime](https://wakatime.com/badge/user/541772df-f19f-4145-a40c-cf7ffac73ea5/project/0a7f661a-d99d-450d-9180-049bc3418b55.svg)](https://wakatime.com/badge/user/541772df-f19f-4145-a40c-cf7ffac73ea5/project/0a7f661a-d99d-450d-9180-049bc3418b55)
 
-Este projeto gira em torno de uma ideia "E se eu criar uma ferramente onde eu possa pesquisar por todas as músicas de um artista uma determinada frase ou palavra"
-
+Este projeto gira em torno de uma ideia "E se eu criar uma ferramente onde eu possa pesquisar por todas as músicas de um
+artista uma determinada frase ou palavra"
 
 - Basta chamar a classe e passar os parâmetros correspondentes
+
 ```python
 wsi = WordInSongs(artist="cazuza", sentence="meu amor")
 wsi.show()
 ```
 
 - Saída no terminal do código acima:
+
 ```commandline
 Pesquisando "Meu amor" por todas as músicas de "Cazuza": 100%|██████████| 125/125 [00:11<00:00, 10.78it/s]
 +-----------------------+-----------------------------------------------------------------------+---------------------------------------------------------------+

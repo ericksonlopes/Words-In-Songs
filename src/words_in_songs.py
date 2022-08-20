@@ -4,7 +4,8 @@ from bs4 import BeautifulSoup
 from prettytable import PrettyTable
 from tqdm import tqdm
 
-from utils import *
+from src.Exceptions import ArtistNotFound
+from src.models import SetenceFound
 
 
 class WordInSongs:
