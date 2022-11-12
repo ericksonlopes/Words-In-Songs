@@ -9,3 +9,4 @@ urllib3==1.26.11
 wcwidth==0.2.5
 pytest~=7.1.2
 tqdm~=4.64.0
+pytest-cov==4.0.0
