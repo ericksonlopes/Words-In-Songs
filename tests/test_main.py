@@ -1,4 +1,6 @@
 from unittest import TestCase
+
+from src.Exceptions import ArtistNotFound
 from src.words_in_songs import WordInSongs
 
 
@@ -22,3 +24,5 @@ class TestWordInSongs(TestCase):
         lista_lyrics = wsi.find_string_in_lyrics(lista_links)
         wsi.view_table(lista_lyrics)
 
+    def test_not_found(self):
+        self.assertRaises(ArtistNotFound, WordInSongs, "asdasdas", "amor")
