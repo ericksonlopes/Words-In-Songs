@@ -1,8 +1,7 @@
-from dataclasses import dataclass
+from pydantic import BaseModel
 
 
-@dataclass
-class SetenceFound:
+class SetenceFound(BaseModel):
     music: str
     phase: str
     link: str

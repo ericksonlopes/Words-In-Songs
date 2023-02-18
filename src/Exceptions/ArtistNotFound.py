@@ -1,3 +1,5 @@
 class ArtistNotFound(Exception):
     """ Artista não encontrado """
-    pass
+
+    def __str__(self):
+        return "Artista não encontrado"
