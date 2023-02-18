@@ -13,7 +13,7 @@ class TestClassWordInSongs(TestCase):
         self.sentence = "amor"
         self.wordis = WordInSongs(self.artist, self.sentence)
 
-    async def test_find_string_in_lyrics(self):
+    def test_find_string_in_lyrics(self):
         get_links_musics = self.wordis.get_links_musics()
 
         with concurrent.futures.ThreadPoolExecutor() as executor:
@@ -21,7 +21,7 @@ class TestClassWordInSongs(TestCase):
             tasks = [loop.run_in_executor(executor, self.wordis.find_string_in_lyric, link) for link in
                      get_links_musics]
 
-            await asyncio.gather(*tasks)
+            asyncio.gather(*tasks)
 
         self.assertTrue(self.wordis.sentence_found_list())
 
