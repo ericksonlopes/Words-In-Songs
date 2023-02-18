@@ -1,5 +1,6 @@
-import requests
 from typing import List
+
+import requests
 from bs4 import BeautifulSoup
 from prettytable import PrettyTable
 from tqdm import tqdm
@@ -9,13 +10,17 @@ from src.models import SetenceFound
 
 
 class WordInSongs:
+    """ Classe responsável por buscar as músicas do artista e as frases que contenham a palavra """
+    URL_VAGALUME = 'https://www.vagalume.com.br/'
+
     def __init__(self, artist: str, sentence: str):
+
         self.__artist = artist
         self.__sentence = sentence
         self.__soup_html: BeautifulSoup
 
-        # Página principal com todas as musicas dos artistas
-        html = requests.get(f'https://www.vagalume.com.br/{self.__artist.replace(" ", "-").lower()}/')
+        # Página principal com todas as músicas dos artistas
+        html = requests.get(f'{self.URL_VAGALUME}/{self.__artist.replace(" ", "-").lower()}/')
 
         if html.status_code == 404:
             raise ArtistNotFound(f"O artista '{self.__artist}' não foi encontrado.")
@@ -35,6 +40,7 @@ class WordInSongs:
         return self.__sentence
 
     def get_links_musics(self) -> List[str]:
+        """ Captura todos os links das músicas do artista """
 
         links = []
 
@@ -45,11 +51,13 @@ class WordInSongs:
             # filtra os links para que não sej adicionado os links com #play no final
             if '#play' not in str(path):
                 # Gera o link para acessar a música e adiciona na lista
-                links.append('https://www.vagalume.com.br' + path)
+                links.append(self.URL_VAGALUME + path)
 
         return links
 
     def find_string_in_lyrics(self, links: list) -> List[SetenceFound]:
+        """ Procura a ‘string’ em todas as letras das músicas do artista """
+
         phases = []
         # E por cada link capturado ele busca a palavra por toda a letra, O tqdm é responsavél pela barra de progresso
         for link_music in tqdm(links, desc=f'Pesquisando "{self.sentence.capitalize()}" '
@@ -74,7 +82,7 @@ class WordInSongs:
             for paragrafo in paragrafos:
                 # verifica se a string existe no paragrafo
                 if self.sentence.lower() in paragrafo.lower():
-                    # Se o paragrafo ja existir não adiciona
+                    # Se o parágrafo ja existir não adiciona
                     if paragrafo not in [sf.phase for sf in phases]:
                         phases.append(SetenceFound(music=musica, phase=paragrafo, link=link_music))
 
@@ -82,6 +90,7 @@ class WordInSongs:
 
     @classmethod
     def view_table(cls, phases: List[SetenceFound]) -> PrettyTable:
+        """ Gera a tabela com os resultados """
 
         # Cria o objeto da tabela, ja com o nome de cada coluna
         tabela_final = PrettyTable(['Música', 'Frase com a Palavra encontrada', 'link da letra'])
@@ -91,6 +100,7 @@ class WordInSongs:
         return tabela_final
 
     def show(self):
+        """ Mostra os resultados """
         get_links_musics = self.get_links_musics()
         find_string_in_lyrics = self.find_string_in_lyrics(get_links_musics)
         print(self.view_table(find_string_in_lyrics))
