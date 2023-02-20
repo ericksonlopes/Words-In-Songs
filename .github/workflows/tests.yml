@@ -15,13 +15,11 @@ jobs:
       matrix:
         python-version: [ "3.8" ]
 
-
     services:
       redis:
         image: redis
         ports:
           - 6379:6379
-
 
     steps:
       - uses: actions/checkout@v3
