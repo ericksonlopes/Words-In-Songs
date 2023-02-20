@@ -5,6 +5,11 @@ name: Tests
 
 on: [ push ]
 
+env:
+  HOST: 0.0.0.0
+  PORT: 6379
+  DB: 0
+
 jobs:
   build:
 
@@ -27,12 +32,6 @@ jobs:
         uses: actions/setup-python@v3
         with:
           python-version: ${{ matrix.python-version }}
-
-      - name: Definir Variáveis de Ambiente
-        run: |
-          echo "export PORT=${{ secrets.PORT }}" >> $GITHUB_ENV
-          echo "export HOST=${{ secrets.HOST }}" >> $GITHUB_ENV
-          echo "export DB=${{ secrets.DB }}" >> $GITHUB_ENV     
 
       - name: Install dependencies
         run: |
