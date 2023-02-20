@@ -30,9 +30,9 @@ jobs:
 
       - name: set variables
         run: |
-          echo "HOST=localhost" >> $GITHUB_ENV
-          echo "PORT=6379" >> $GITHUB_ENV
-          echo "DB=0" >> $GITHUB_ENV
+          echo "HOST=$env:HOST" >> $GITHUB_ENV
+          echo "PORT=$env:PORT" >> $GITHUB_ENV
+          echo "DB=$env:DB" >> $GITHUB_ENV
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v3
