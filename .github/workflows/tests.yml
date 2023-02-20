@@ -14,16 +14,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Set environment variables
-        env:
-          REDIS_PORT: ${{ vars.REDIS_PORT }}
-          REDIS_HOST: ${{ vars.REDIS_HOST }}
-          REDIS_DB: ${{ vars.REDIS_DB }}
-
+      - name: set variables
         run: |
-          export REDIS_PORT=${{ vars.REDIS_PORT }}
-          export REDIS_HOST=${{ vars.REDIS_HOST }}
-          export REDIS_DB=${{ vars.REDIS_DB }}
+          echo "REDIS_HOST=localhost" >> $GITHUB_ENV
+          echo "REDIS_PORT=6379" >> $GITHUB_ENV
+          echo "REDIS_DB=0" >> $GITHUB_ENV
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
