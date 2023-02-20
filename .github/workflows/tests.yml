@@ -29,11 +29,11 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
       - name: Definir Variáveis de Ambiente
+        env:
+          HOST: ${{ secrets.HOST }}
+          PORT: ${{ secrets.PORT }}
+          DB: ${{ secrets.DB }}
 
-        run: |
-            echo "export HOST=${{ words-in-songs.HOST }}" >> $GITHUB_ENV
-            echo "export PORT=${{ words-in-songs.PORT }}" >> $GITHUB_ENV
-            echo "export DB=${{ words-in-songs.DB }}" >> $GITHUB_ENV
 
       - name: Install dependencies
         run: |
