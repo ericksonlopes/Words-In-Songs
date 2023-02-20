@@ -28,6 +28,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: set variables
+        run: |
+          echo "HOST=localhost" >> $GITHUB_ENV
+          echo "PORT=6379" >> $GITHUB_ENV
+          echo "DB=0" >> $GITHUB_ENV
+
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v3
         with:
