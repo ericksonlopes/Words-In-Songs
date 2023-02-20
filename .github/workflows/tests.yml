@@ -23,11 +23,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Passo com Variável de Ambiente
+      - name: Set environment variables
         env:
-          MY_VARIABLE: ${{ secrets.NOME_DA_VARIAVEL }}
-        run: echo $MY_VARIABLE
-
+          REDIS_PORT: ${{ vars.PORT }}
+          REDIS_HOST: ${{ vars.HOST }}
+          REDIS_DB: ${{ vars.DB }}
 
       - name: Test with pytest
         run: |
