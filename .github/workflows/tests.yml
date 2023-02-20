@@ -2,6 +2,11 @@ name: Tests
 
 on: [ push ]
 
+env:
+  REDIS_HOST: $env:REDIS_HOST
+  REDIS_PORT: $env:REDIS_PORT
+  REDIS_DB: $env:REDIS_DB
+
 jobs:
   build:
 
@@ -27,10 +32,10 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
       - name: set env
-        env:
-          REDIS_PORT: ${{ vars.REDIS_PORT }}
-          REDIS_HOST: ${{ vars.REDIS_HOST }}
-          REDIS_DB: ${{ vars.REDIS_DB }}
+        run: |
+          echo "REDIS_PORT: ${{ vars.REDIS_PORT }}" >> $GITHUB_ENV
+          echo "REDIS_HOST: ${{ vars.REDIS_HOST }}" >> $GITHUB_ENV
+          echo "REDIS_DB: ${{ vars.REDIS_DB }}" >> $GITHUB_ENV
 
       - name: Install dependencies
         run: |
