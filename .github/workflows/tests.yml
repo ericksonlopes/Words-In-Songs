@@ -17,7 +17,6 @@ jobs:
     services:
       redis:
         image: redis
-        host: redis
         ports:
           - 6379:6379
 
