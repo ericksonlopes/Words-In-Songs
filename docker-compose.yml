@@ -2,7 +2,7 @@ version: "3"
 
 services:
   redis:
-    image: redis/redis-stack:latest
+    image: redis
     ports:
       - "6379:6379"
     volumes:
@@ -16,7 +16,6 @@ services:
       - redis
     environment:
       - REDIS_HOST=redis
-
 
 volumes:
   redis_data:

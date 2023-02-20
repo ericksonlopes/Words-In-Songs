@@ -1,4 +1,5 @@
 import json
+import os
 from typing import List
 
 import redis
@@ -8,9 +9,9 @@ from src.models import SetenceFound
 
 
 class ConnectRedis:
-    __HOST = '0.0.0.0'
-    __PORT = 6379
-    __DB = 0
+    __HOST = os.environ.get('HOST')
+    __PORT = os.environ.get('PORT')
+    __DB = os.environ.get('DB')
 
     def __init__(self) -> None:
         self.__redis = redis.Redis(host=self.__HOST, port=self.__PORT, db=self.__DB)
