@@ -13,6 +13,16 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Set environment variables
+        env:
+          REDIS_PORT: ${{ vars.REDIS_PORT }}
+          REDIS_HOST: ${{ vars.REDIS_HOST }}
+          REDIS_DB: ${{ vars.REDIS_DB }}
+        run: |
+          echo "REDIS_PORT=$REDIS_PORT" >> $GITHUB_ENV
+          echo "REDIS_HOST=$REDIS_HOST" >> $GITHUB_ENV
+          echo "REDIS_DB=$REDIS_DB" >> $GITHUB_ENV
+
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
         with:
@@ -23,15 +33,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Set environment variables
-        env:
-          REDIS_PORT: ${{ vars.REDIS_PORT }}
-          REDIS_HOST: ${{ vars.REDIS_HOST }}
-          REDIS_DB: ${{ vars.REDIS_DB }}
-        run: |
-          echo "REDIS_PORT=$REDIS_PORT" >> $GITHUB_ENV
-          echo "REDIS_HOST=$REDIS_HOST" >> $GITHUB_ENV
-          echo "REDIS_DB=$REDIS_DB" >> $GITHUB_ENV
+
 
       - name: Test with pytest
         run: |
