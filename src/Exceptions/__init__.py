@@ -1,3 +1,3 @@
-from src.Exceptions.artist_not_found_exception import ArtistNotFoundException
-from src.Exceptions.get_found_sentence_to_json_exception import GetSentenceToJsonException
-from src.Exceptions.set_sentence_exception import SetSentenceException
+from src.Exceptions.ArtistNotFoundException import ArtistNotFoundException
+from src.Exceptions.GetFoundSentenceToJsonException import GetSentenceToJsonException
+from src.Exceptions.SetSentenceException import SetSentenceException
