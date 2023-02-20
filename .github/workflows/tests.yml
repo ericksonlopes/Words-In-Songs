@@ -24,7 +24,15 @@ jobs:
           pip install -r requirements.txt
 
       - name: set variables
-        run : echo "${{ env.PORT }}"
+        run: |
+          echo "${{ secrets.PORT }}"
+          echo "$PORT"
+          echo "${{ vars.PORT }}"
+          echo "${{ env.PORT }}"
+
+
+
+
 
 
       - name: Test with pytest
