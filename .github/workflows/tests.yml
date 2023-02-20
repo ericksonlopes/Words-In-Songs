@@ -29,9 +29,9 @@ jobs:
           REDIS_HOST: ${{ vars.REDIS_HOST }}
           REDIS_DB: ${{ vars.REDIS_DB }}
         run: |
-          echo "REDIS_PORT= $REDIS_PORT" >> $GITHUB_ENV
-          echo "REDIS_HOST= $REDIS_HOST" >> $GITHUB_ENV
-          echo "REDIS_DB= $REDIS_DB" >> $GITHUB_ENV
+          echo "REDIS_PORT=$REDIS_PORT" >> $GITHUB_ENV
+          echo "REDIS_HOST=$REDIS_HOST" >> $GITHUB_ENV
+          echo "REDIS_DB=$REDIS_DB" >> $GITHUB_ENV
 
       - name: Test with pytest
         run: |
