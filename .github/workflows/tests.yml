@@ -24,10 +24,8 @@ jobs:
           pip install -r requirements.txt
 
       - name: set variables
-        env:
-          PORT: ${{ secrets.PORT }}
-          HOST: ${{ secrets.HOST }}
-          DB: ${{ secrets.DB }}
+        run : echo "${{ env.PORT }}"
+
 
       - name: Test with pytest
         run: |
