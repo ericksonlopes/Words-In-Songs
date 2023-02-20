@@ -5,15 +5,11 @@ name: Tests
 
 on: [ push ]
 
-env:
-  HOST: ${{ vars.HOST }}
-  PORT: ${{ vars.PORT }}
-  DB: ${{ vars.DB }}
-
 jobs:
   build:
 
     runs-on: ubuntu-latest
+
     strategy:
       fail-fast: false
       matrix:
@@ -24,6 +20,8 @@ jobs:
         image: redis
         ports:
           - 6379:6379
+
+    environment: words-in-songs
 
     steps:
       - uses: actions/checkout@v3
