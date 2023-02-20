@@ -8,7 +8,7 @@ from src.models import SetenceFound
 
 
 class ConnectRedis:
-    __HOST = 'redis'
+    __HOST = '0.0.0.0'
     __PORT = 6379
     __DB = 0
 
