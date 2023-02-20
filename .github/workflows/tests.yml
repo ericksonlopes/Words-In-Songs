@@ -6,9 +6,9 @@ name: Tests
 on: [ push ]
 
 env:
-  HOST: ${{ vars.HOST }}
-  PORT: ${{ vars.PORT }}
-  DB: ${{ vars.DB }}
+  HOST: ${{ env.HOST }}
+  PORT: ${{ env.PORT }}
+  DB: ${{ env.DB }}
 
 jobs:
   build:
