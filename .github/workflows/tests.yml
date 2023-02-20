@@ -19,10 +19,11 @@ jobs:
           REDIS_PORT: ${{ vars.REDIS_PORT }}
           REDIS_HOST: ${{ vars.REDIS_HOST }}
           REDIS_DB: ${{ vars.REDIS_DB }}
+
         run: |
-          echo "REDIS_PORT=$REDIS_PORT" >> $GITHUB_ENV
-          echo "REDIS_HOST=$REDIS_HOST" >> $GITHUB_ENV
-          echo "REDIS_DB=$REDIS_DB" >> $GITHUB_ENV
+          export REDIS_PORT=${{ vars.REDIS_PORT }}
+          export REDIS_HOST=${{ vars.REDIS_HOST }}
+          export REDIS_DB=${{ vars.REDIS_DB }}
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
