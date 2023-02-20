@@ -17,17 +17,9 @@ jobs:
     services:
       redis:
         image: redis
+        hostname: redis
         ports:
           - 6379:6379
-        options: --name redis-test
-
-    redis-commander:
-      image: rediscommander/redis-commander:latest
-      ports:
-        - 8081:8081
-      env:
-        REDIS_HOSTS: "local:redis:6379"
-      options: --name redis-commander-test --link redis-test
 
     steps:
       - uses: actions/checkout@v3
