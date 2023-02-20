@@ -22,13 +22,11 @@ jobs:
           - 6379:6379
 
     steps:
-      - uses: actions/checkout@v3
-
       - name: set variables
-        run: |
-          echo "HOST=${{ secrets.HOST }}" >> $GITHUB_ENV
-          echo "PORT=${{ secrets.PORT }}" >> $GITHUB_ENV
-          echo "DB=${{ secrets.DB }}" >> $GITHUB_ENV
+        env:
+          PORT: ${{ secrets.PORT }}
+          HOST: ${{ secrets.HOST }}
+          DBT: ${{ secrets.DB }}
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v3
