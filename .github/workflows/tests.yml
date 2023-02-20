@@ -22,6 +22,8 @@ jobs:
           - 6379:6379
 
     steps:
+      - uses: actions/checkout@v3
+
       - name: set variables
         env:
           PORT: ${{ secrets.PORT }}
