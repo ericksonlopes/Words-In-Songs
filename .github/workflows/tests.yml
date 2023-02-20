@@ -5,10 +5,6 @@ name: Tests
 
 on: [ push ]
 
-env:
-  HOST: $env:HOST
-  PORT: $env:PORT
-  DB: $env:DB
 
 jobs:
   build:
@@ -29,10 +25,10 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: set variables
-        run: |
-          echo "HOST=$env:HOST" >> $GITHUB_ENV
-          echo "PORT=$env:PORT" >> $GITHUB_ENV
-          echo "DB=$env:DB" >> $GITHUB_ENV
+        env:
+          PORT: ${{ secrets.PORT }}
+          HOST: ${{ secrets.HOST }}
+          DBT: ${{ secrets.DB }}
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v3
