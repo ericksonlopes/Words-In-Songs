@@ -23,18 +23,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: set variables
-        run: |
-          echo "${{ secrets.PORT }}"
-          echo "$PORT"
-          echo "${{ vars.PORT }}"
-          echo "${{ env.PORT }}"
-          echo "${{ github.event.inputs.PORT }}"
-          echo "${{ github.PORT }}"
-
-
-
-
+      - name: Passo com Variável de Ambiente
+        env:
+          MY_VARIABLE: ${{ secrets.NOME_DA_VARIAVEL }}
+        run: echo $MY_VARIABLE
 
 
       - name: Test with pytest
