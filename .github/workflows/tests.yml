@@ -29,6 +29,8 @@ jobs:
           echo "$PORT"
           echo "${{ vars.PORT }}"
           echo "${{ env.PORT }}"
+          echo "${{ github.event.inputs.PORT }}"
+          echo "${{ github.PORT }}"
 
 
 
