@@ -6,9 +6,9 @@ COPY . .
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-ENV HOST=redis
-ENV PORT=6379
-ENV DB=0
+ENV REDIS_HOST=redis
+ENV REDIS_PORT=6379
+ENV REDIS_DB=0
 
 EXPOSE 8000
 

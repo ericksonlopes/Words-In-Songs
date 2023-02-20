@@ -9,9 +9,9 @@ from src.models import SetenceFound
 
 
 class ConnectRedis:
-    __HOST = os.environ.get('HOST')
-    __PORT = os.environ.get('PORT')
-    __DB = os.environ.get('DB')
+    __HOST = os.environ.get('REDIS_HOST')
+    __PORT = os.environ.get('REDIS_PORT')
+    __DB = os.environ.get('REDIS_DB')
 
     def __init__(self) -> None:
         self.__redis = redis.Redis(host=self.__HOST, port=self.__PORT, db=self.__DB)
