@@ -3,7 +3,7 @@ from typing import List
 import requests
 from bs4 import BeautifulSoup
 
-from src.Exceptions import ArtistNotFound
+from src.Exceptions import ArtistNotFoundException
 from src.models import SetenceFound
 
 
@@ -24,7 +24,7 @@ class WordInSongs:
         html = requests.get(f'{self.URL_VAGALUME}/{self.__artist.replace(" ", "-").lower()}/')
 
         if html.status_code == 404:
-            raise ArtistNotFound(f"O artista '{self.__artist}' não foi encontrado.")
+            raise ArtistNotFoundException(f"O artista '{self.__artist}' não foi encontrado.")
 
         # Estruturando dados como html
         self.__soup_html = BeautifulSoup(html.content, 'html.parser')

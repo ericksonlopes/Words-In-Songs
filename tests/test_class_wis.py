@@ -2,7 +2,7 @@ import asyncio
 import concurrent.futures
 from unittest import TestCase
 
-from src.Exceptions import ArtistNotFound
+from src.Exceptions import ArtistNotFoundException
 from src.words_in_songs import WordInSongs
 
 
@@ -29,7 +29,7 @@ class TestClassWordInSongs(TestCase):
         self.assertTrue(self.wordis.get_links_musics())
 
     def test_artist_not_found(self):
-        with self.assertRaises(ArtistNotFound):
+        with self.assertRaises(ArtistNotFoundException):
             WordInSongs("asdasdas", "amor")
 
     def test_sentence_not_found(self):
