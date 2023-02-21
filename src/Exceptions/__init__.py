@@ -1,3 +1,5 @@
 from src.Exceptions.ArtistNotFoundException import ArtistNotFoundException
+from src.Exceptions.FindStringInLyricException import FindStringInLyricException
 from src.Exceptions.GetFoundSentenceToJsonException import GetSentenceToJsonException
+from src.Exceptions.GetLinksMusicsException import GetLinksMusicsException
 from src.Exceptions.SetSentenceException import SetSentenceException

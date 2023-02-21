@@ -2,8 +2,9 @@ from typing import List
 
 import requests
 from bs4 import BeautifulSoup
+from loguru import logger
 
-from src.Exceptions import ArtistNotFoundException
+from src.Exceptions import ArtistNotFoundException, FindStringInLyricException
 from src.models import SetenceFound
 
 
@@ -24,6 +25,7 @@ class WordInSongs:
         html = requests.get(f'{self.URL_VAGALUME}/{self.__artist.replace(" ", "-").lower()}/')
 
         if html.status_code == 404:
+            logger.warning(f"O artista '{self.__artist}' não foi encontrado.")
             raise ArtistNotFoundException(f"O artista '{self.__artist}' não foi encontrado.")
 
         # Estruturando dados como html
@@ -46,49 +48,57 @@ class WordInSongs:
     def get_links_musics(self) -> List[str]:
         """ Captura todos os links das músicas do artista """
 
-        # Procura a lista alfabetica e filtra todos as tags a
-        for tag in self.__soup_html.find(id='alfabetMusicList').find_all('a'):
-            # Por cada tag pega o conteúdo do atributo href
-            path = tag.attrs['href']
-            # filtra os links para que não sej adicionado os links com #play no final
-            if '#play' not in str(path):
-                full_path = self.URL_VAGALUME + path
-                self.__links_musics.append(full_path)
+        try:
+            # Procura a lista alfabetica e filtra todos as tags a
+            for tag in self.__soup_html.find(id='alfabetMusicList').find_all('a'):
+                # Por cada tag pega o conteúdo do atributo href
+                path = tag.attrs['href']
+                # filtra os links para que não sej adicionado os links com #play no final
+                if '#play' not in str(path):
+                    full_path = self.URL_VAGALUME + path
+                    self.__links_musics.append(full_path)
 
-                # Gera o link para acessar a música e adiciona na lista
-                yield full_path
+                    # Gera o link para acessar a música e adiciona na lista
+                    yield full_path
+        except Exception:
+            logger.warning(f"Erro ao capturar os links das músicas do artista '{self.__artist}'")
+            raise ArtistNotFoundException(self.__artist)
 
     def find_string_in_lyric(self, link: str) -> None:
         """ Procura a ‘string’ em todas as letras das músicas do artista """
 
-        # faz a requisição até a página
-        html_musica = requests.get(link)
-        # Tratar o conteúdo recebido como um documento como uma estrutura de documento html
-        soup = BeautifulSoup(html_musica.content, 'html.parser')
-
-        page_music = []
         try:
+            # faz a requisição até a página
+            html_musica = requests.get(link)
+            # Tratar o conteúdo recebido como um documento como uma estrutura de documento html
+            soup = BeautifulSoup(html_musica.content, 'html.parser')
 
-            for item in soup.find(id="lyrics").contents:
-                page_music.append(item)
+            page_music = []
+            try:
 
-        except AttributeError:
-            pass
+                for item in soup.find(id="lyrics").contents:
+                    page_music.append(item)
 
-        phases = [item.text for item in page_music if item.text != '']
-        musica = soup.find(id="lyricContent").find('h1').string
+            except AttributeError:
+                pass
 
-        for phase in phases:
-            if not self.sentence.lower() in phase.lower():
-                continue
+            phases = [item.text for item in page_music if item.text != '']
+            musica = soup.find(id="lyricContent").find('h1').string
 
-            if phase not in page_music:
-                continue
+            for phase in phases:
+                if not self.sentence.lower() in phase.lower():
+                    continue
 
-            if phase in [item.phase for item in self.__setence_found_list]:
-                continue
+                if phase not in page_music:
+                    continue
 
-            if musica is None or phase is None or link is None:
-                continue
+                if phase in [item.phase for item in self.__setence_found_list]:
+                    continue
 
-            self.__setence_found_list.append(SetenceFound(music=musica, phase=phase, link=link))
+                if musica is None or phase is None or link is None:
+                    continue
+
+                self.__setence_found_list.append(SetenceFound(music=musica, phase=phase, link=link))
+        except Exception:
+            logger.warning(f"Erro ao encontrar a string na letra da música '{link}'")
+            raise FindStringInLyricException(link)

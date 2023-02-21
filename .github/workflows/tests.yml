@@ -2,11 +2,6 @@ name: Tests
 
 on: [ push ]
 
-env:
-  REDIS_HOST: ${{ vars.REDIS_HOST }}
-  REDIS_PORT: ${{ vars.REDIS_PORT }}
-  REDIS_DB: ${{ vars.REDIS_DB }}
-
 jobs:
   build:
 
@@ -18,6 +13,10 @@ jobs:
     services:
       redis:
         image: redis
+        env:
+          REDIS_HOST: ${{ vars.REDIS_HOST }}
+          REDIS_PORT: ${{ vars.REDIS_PORT }}
+          REDIS_DB: ${{ vars.REDIS_DB }}
         ports:
           - 6379:6379
 
