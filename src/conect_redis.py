@@ -1,20 +1,20 @@
 import json
-import os
 from typing import List
 
 import redis
 
+from config import RedisEnvConfig
 from src.Exceptions import GetSentenceToJsonException, SetSentenceException
 from src.models import SetenceFound
 
 
 class ConnectRedis:
-    __HOST: str = os.environ.get('REDIS_HOST')
-    __PORT: int = os.environ.get('REDIS_PORT')
-    __DB: int = os.environ.get('REDIS_DB')
-
     def __init__(self) -> None:
-        redis_pool = redis.ConnectionPool(host='localhost', port=6379, db=0)
+        redis_pool = redis.ConnectionPool(
+            host=RedisEnvConfig.HOST,
+            port=RedisEnvConfig.PORT,
+            db=RedisEnvConfig.DB,
+        )
         self.__redis = redis.Redis(connection_pool=redis_pool)
 
     def __enter__(self):
