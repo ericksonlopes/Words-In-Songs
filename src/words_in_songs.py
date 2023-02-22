@@ -10,7 +10,7 @@ from src.models import SetenceFound
 
 class WordInSongs:
     """ Classe responsável por buscar as músicas do artista e as frases que contenham a palavra """
-    URL_VAGALUME = 'https://www.vagalume.com.br/'
+    __URL_VAGALUME = 'https://www.vagalume.com.br/'
 
     def __init__(self, artist: str, sentence: str):
 
@@ -22,7 +22,7 @@ class WordInSongs:
         self.__links_musics: List[str] = []
 
         # Página principal com todas as músicas dos artistas
-        html = requests.get(f'{self.URL_VAGALUME}/{self.__artist.replace(" ", "-").lower()}/')
+        html = requests.get(f'{self.__URL_VAGALUME}/{self.__artist.replace(" ", "-").lower()}/')
 
         if html.status_code == 404:
             logger.warning(f"O artista '{self.__artist}' não foi encontrado.")
@@ -55,7 +55,7 @@ class WordInSongs:
                 path = tag.attrs['href']
                 # filtra os links para que não sej adicionado os links com #play no final
                 if '#play' not in str(path):
-                    full_path = self.URL_VAGALUME + path
+                    full_path = self.__URL_VAGALUME + path
                     self.__links_musics.append(full_path)
 
                     # Gera o link para acessar a música e adiciona na lista
