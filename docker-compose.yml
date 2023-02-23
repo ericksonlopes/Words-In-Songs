@@ -14,8 +14,10 @@ services:
       - "8000:8000"
     depends_on:
       - redis
-    environment:
-      - REDIS_HOST=redis
 
 volumes:
   redis_data:
+
+networks:
+  words-in-songs-network:
+    driver: bridge

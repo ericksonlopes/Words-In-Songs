@@ -6,6 +6,7 @@ COPY . .
 
 RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir pytest
 
 ENV REDIS_HOST=redis
 ENV REDIS_PORT=6379
