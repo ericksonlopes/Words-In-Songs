@@ -25,7 +25,7 @@ async def wsi(artist_sentence: ArtistSentence) -> List[SetenceFound]:
 
     logger.info(f"Buscando no redis a chave {key}")
 
-    response = randler_redis.get_found_sentense_to_json(key)
+    response = randler_redis.get_found_sentence_to_json(key)
     if response:
         logger.info(f"Dados encontrado no redis a chave {key}")
         return response
@@ -42,9 +42,9 @@ async def wsi(artist_sentence: ArtistSentence) -> List[SetenceFound]:
 
         logger.info(f"Encontrado {len(word_songs.sentence_found_list())} vezes")
 
-    except ArtistNotFoundException as anfe:
-        logger.warning(anfe.__str__())
-        raise HTTPException(status_code=404, detail=anfe.__str__())
+    except ArtistNotFoundException as not_found_artist:
+        logger.warning(not_found_artist.__str__())
+        raise HTTPException(status_code=404, detail=not_found_artist.__str__())
 
     except Exception as e:
         logger.error(e.__str__())

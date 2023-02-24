@@ -25,7 +25,8 @@ class ConnectRedis:
 
 
 class RandlerRedis:
-    def get_found_sentense_to_json(self, key: str) -> dict or bool:
+    @staticmethod
+    def get_found_sentence_to_json(key: str) -> dict or bool:
         try:
             with ConnectRedis() as r:
                 if r.exists(key):
@@ -42,7 +43,7 @@ class RandlerRedis:
 
     def set_sentence_found(self, key, values: List[SetenceFound]):
         try:
-            str_list_sentence = str(list(map(lambda setence_found: setence_found.__dict__, values)))
+            str_list_sentence = str(list(map(lambda sentence_found: sentence_found.__dict__, values)))
 
             with ConnectRedis() as self.__redis:
                 self.__redis.hset(key, "found", str_list_sentence)

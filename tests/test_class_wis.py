@@ -9,35 +9,35 @@ from src.words_in_songs import WordInSongs
 class TestClassWordInSongs(TestCase):
 
     def setUp(self):
-        self.artist = "cazuza"
+        self.artist = "Cazuza"
         self.sentence = "amor"
-        self.wordis = WordInSongs(self.artist, self.sentence)
+        self.words = WordInSongs(self.artist, self.sentence)
 
     def test_find_string_in_lyrics(self):
-        get_links_musics = self.wordis.get_links_musics()
+        get_links_musics = self.words.get_links_musics()
 
         with concurrent.futures.ThreadPoolExecutor() as executor:
             loop = asyncio.get_event_loop()
-            tasks = [loop.run_in_executor(executor, self.wordis.find_string_in_lyric, link) for link in
+            tasks = [loop.run_in_executor(executor, self.words.find_string_in_lyric, link) for link in
                      get_links_musics]
 
             asyncio.gather(*tasks)
 
-        self.assertTrue(self.wordis.sentence_found_list())
+        self.assertTrue(self.words.sentence_found_list())
 
     def test_get_links_music(self):
-        self.assertTrue(self.wordis.get_links_musics())
+        self.assertTrue(self.words.get_links_musics())
 
     def test_artist_not_found(self):
         with self.assertRaises(ArtistNotFoundException):
-            WordInSongs("asdasdas", "amor")
+            WordInSongs("teste", "amor")
 
     def test_sentence_not_found(self):
-        if len(self.wordis.sentence_found_list()):
+        if len(self.words.sentence_found_list()):
             self.fail("Sentence not found")
 
     def test_get_artist(self):
-        self.assertEqual(self.wordis.artist.lower(), self.artist.lower())
+        self.assertEqual(self.words.artist.lower(), self.artist.lower())
 
     def test_get_sentence(self):
-        self.assertEqual(self.wordis.sentence.lower(), self.sentence.lower())
+        self.assertEqual(self.words.sentence.lower(), self.sentence.lower())
