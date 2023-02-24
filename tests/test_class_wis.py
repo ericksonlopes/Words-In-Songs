@@ -30,7 +30,7 @@ class TestClassWordInSongs(TestCase):
 
     def test_artist_not_found(self):
         with self.assertRaises(ArtistNotFoundException):
-            WordInSongs("teste", "amor")
+            WordInSongs("testes_error", "amor")
 
     def test_sentence_not_found(self):
         if len(self.words.sentence_found_list()):
