@@ -13,7 +13,7 @@ class TestClassWordInSongs(TestCase):
         self.sentence = "amor"
 
     def test_wis(self):
-        response = client.post("/wis", json={"artist": self.artist, "sentence": self.sentence})
+        response = client.post("/api/v1/wis", json={"artist": self.artist, "sentence": self.sentence})
 
         self.assertEqual(response.status_code, 200)
         self.assertTrue(response.json())

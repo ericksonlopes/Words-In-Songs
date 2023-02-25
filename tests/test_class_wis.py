@@ -3,7 +3,7 @@ import concurrent.futures
 from unittest import TestCase
 
 from src.Exceptions import ArtistNotFoundException
-from src.words_in_songs import WordInSongs
+from src.repository.words_in_songs import WordInSongs
 
 
 class TestClassWordInSongs(TestCase):

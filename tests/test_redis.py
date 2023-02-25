@@ -1,4 +1,4 @@
-from src.conect_redis import ConnectRedis, RandlerRedis
+from config import ConnectRedis, RandlerRedis
 from src.models import SetenceFound
 
 

@@ -3,7 +3,7 @@ from typing import List
 
 import redis
 
-from config import RedisEnvConfig
+from config.redis.get_env_redis import RedisEnvConfig
 from src.Exceptions import GetSentenceToJsonException, SetSentenceException
 from src.models import SetenceFound
 
@@ -15,7 +15,9 @@ class ConnectRedis:
             port=RedisEnvConfig.PORT,
             db=RedisEnvConfig.DB,
         )
-        self.__redis = redis.Redis(connection_pool=redis_pool)
+        redis_client = redis.Redis(connection_pool=redis_pool)
+
+        self.__redis = redis_client
 
     def __enter__(self):
         return self.__redis
