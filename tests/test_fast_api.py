@@ -19,6 +19,6 @@ class TestClassWordInSongs(TestCase):
         self.assertTrue(response.json())
 
     def test_wis_not_found(self):
-        response = client.post("/wis", json={"artist": "not_found", "sentence": self.sentence})
+        response = client.post("/api/v1/wis", json={"artist": "not_found", "sentence": self.sentence})
 
         self.assertEqual(response.status_code, 404)

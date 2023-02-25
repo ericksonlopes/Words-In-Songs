@@ -10,10 +10,12 @@ from src.models import SetenceFound
 
 class ConnectRedis:
     def __init__(self) -> None:
+        self.__redis_settings = RedisEnvConfig()
+        
         redis_pool = redis.ConnectionPool(
-            host=RedisEnvConfig.HOST,
-            port=RedisEnvConfig.PORT,
-            db=RedisEnvConfig.DB,
+            host=self.__redis_settings.HOST,
+            port=self.__redis_settings.PORT,
+            db=self.__redis_settings.DB,
         )
         redis_client = redis.Redis(connection_pool=redis_pool)
 

@@ -29,7 +29,7 @@ class TestClassWordInSongs(TestCase):
         self.assertTrue(self.words.get_links_musics())
 
     def test_artist_not_found(self):
-        with self.assertRaises(ArtistNotFoundException):
+        with self.assertRaises(ArtistNotFoundException) as context:
             WordInSongs("testes_error", "amor")
 
     def test_sentence_not_found(self):

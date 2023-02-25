@@ -1,10 +1,9 @@
 import os
 
-from pydantic.dataclasses import dataclass
+from pydantic import BaseSettings
 
 
-@dataclass
-class RedisEnvConfig:
+class RedisEnvConfig(BaseSettings):
     PORT = os.getenv('REDIS_PORT') or 6379
     HOST = os.getenv('REDIS_HOST') or 'localhost'
     DB = os.getenv('REDIS_DB') or 0
