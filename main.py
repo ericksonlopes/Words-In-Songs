@@ -1,8 +1,9 @@
 from fastapi import FastAPI
 
+from config import PROJECT_NAME
 from src.views.word_in_songs_view import wis_router
 
-app = FastAPI()
+app = FastAPI(title=PROJECT_NAME)
 
 app.include_router(wis_router, prefix="/api/v1", tags=["wis"])
 

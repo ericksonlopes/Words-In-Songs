@@ -99,6 +99,7 @@ class WordInSongs:
                     continue
 
                 self.__setence_found_list.append(SetenceFound(music=musica, phase=phase, link=link))
+
         except Exception:
             logger.warning(f"Erro ao encontrar a string na letra da música '{link}'")
             raise FindStringInLyricException(link)
