@@ -1,7 +1,7 @@
 import json
 from typing import List
 
-from config import ConnectRedis
+from config.redis.conect_redis import ConnectRedis
 from src.Exceptions import GetSentenceToJsonException, SetSentenceException
 from src.models import SetenceFound
 
