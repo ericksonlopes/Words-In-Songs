@@ -12,6 +12,8 @@ python-dotenv = "*"
 pytest = "*"
 redis = "*"
 uvicorn = "*"
+pytest-cov = "*"
+httpx = "*"
 
 [dev-packages]
 
