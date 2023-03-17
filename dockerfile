@@ -4,9 +4,8 @@ WORKDIR /words-in-songs
 
 COPY . .
 
-RUN pip install --upgrade pip
-RUN pip install --no-cache-dir -r requirements.txt
-RUN pip install --no-cache-dir pytest
+RUN pip install pipenv
+RUN pipenv install --system
 
 ENV REDIS_HOST=redis
 ENV REDIS_PORT=6379
